@@ -12,20 +12,15 @@ const options = {
 
 
 const jwtStrategy = new JwtStrategy(options, async (payload, done) => {
-  console.log(payload);
   if(!payload.userId) {
     return done(null, false, {message: "Передан некорректный токен"});
   }
 
-  console.log('JWT!!!!');
-  
   const user = await User.findById(payload.userId);
 
-  console.log(payload);
   if(!user) {
     return done(null, false, {message: "Пользователь не найден"});
   }
-
 
   return done(null, user, {message: "Пользователь найден"}); 
 });

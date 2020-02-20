@@ -1,4 +1,6 @@
 const mongoose = require("../libs/mongoose");
+const getPublicValueFromPublicFields = require("../helpers/getPublicValueFromPublicFields");
+
 
 const {model, Types, Schema} = mongoose;
 
@@ -16,12 +18,7 @@ const containerSchema = new Schema({
   timestamps: true,
   toObject: {
     transform(doc, ret, options) {
-      return publicFields.reduce((result, key) => {
-        if(key in ret) {
-          result[key] = ret[key]
-        }
-        return result
-      }, {})
+      return getPublicValueFromPublicFields(ret, publicFields);
     }
   }
 })

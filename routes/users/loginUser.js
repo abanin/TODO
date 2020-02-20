@@ -19,10 +19,9 @@ module.exports = async(ctx, next) => {
       userId: userPrepare.id,
       email: userPrepare.email
     }
-
+    
+    // TODO set ttl jwt;
     const token = jwt.sign(payload, config.get('secretJwt'));
-    console.log(token);
-
     ctx.body = { ...userPrepare, ...info, token: "JWT " + token};
   })(ctx, next);
 }

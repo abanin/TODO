@@ -7,13 +7,12 @@ module.exports = async (ctx, next) => {
       ctx.body = {message: "Вы не авторизованы"};
     }
 
-    console.log('USER!!!');
-
     if(user) {
+      ctx.state.user = user;
       await next();
     } else {
-      ctx.status = 404;
-      ctx.body = {message: "Пользователь не найден !!!"};
+      ctx.status = 401;
+      ctx.body = {message: "Пользователь не найден. Доступ запрещен!"};
     }
   })(ctx, next);
 }

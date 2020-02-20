@@ -76,13 +76,13 @@ const userSchema = new Schema(
     // },
     lastLoginDate: {
       type: Date
-    }
-    // availableContainers: [
-    //   {
-    //     type: Types.ObjectId,
-    //     ref: "Container"
-    //   }
-    // ]
+    },
+    availableContainers: [
+      {
+        type: Types.ObjectId,
+        ref: "Container"
+      }
+    ]
   },
   {
     timestamps: true,

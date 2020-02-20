@@ -21,5 +21,6 @@ module.exports = async (ctx, next) => {
     console.error("Routes [regUser.js]: Что то пошло не так");
     ctx.throw(500, { message: "Что то пошло не так" }); // TODO придумать нормальный текст для ошибки
   }
+  ctx.status = 201;
   ctx.body = user.toObject();
 };

@@ -14,7 +14,6 @@ const vkStatery = new VkStatery(options, async (accessToken, refreshToken, param
 
   //TODO email может приходить не всегда. Обработать эту ошибку или попытаться авторизоваться по другому. Например через телефон
   
-  console.log(profile);
   User.find({ email }, (err, user) => {
     if(err) return done(err);
 

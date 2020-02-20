@@ -7,7 +7,8 @@ module.exports = {
   secret: "mysecret",
   secretJwt: 'hashSecretKeyYanusik',
   prefixs: {
-    users: "/users"
+    users: "/users",
+    containers: "/containers"
   },
   apiBaseUri: "/api/v1",
   root: process.cwd(),
