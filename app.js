@@ -39,8 +39,8 @@ userRouter
 
 containerRouter
 .get('/', mustBeAuthenticated, require('./routes/containers/getAllContainers'))
+.get('/:containerId', mustBeAuthenticated, require('./routes/containers/getByIdContainer'))
 .post('/create', mustBeAuthenticated, require('./routes/containers/createContainers'));
-
 
 
 router.get('/', async (ctx, next) => {
