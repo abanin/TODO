@@ -7,11 +7,12 @@ module.exports = async ctx => {
   if (!checkUser(ctx)) return;
 
   let user = ctx.state.user;
+  console.log(user);
   const containerId = ctx.params.containerId;
   if (!user.availableContainers.includes(containerId)) {
     ctx.status = 404;
     ctx.body = {
-      message: "Данный контейнер вам не доступен. Возможно, не существует"
+      message: "Данная рабочая область вам не доступен. Возможно, не существует"
     };
     return;
   }

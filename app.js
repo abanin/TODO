@@ -30,9 +30,7 @@ userRouter
 .post('/reg', require('./routes/users/regUser'))
 .post('/login', require('./routes/users/loginUser'))
 .get('/:userId', mustBeAuthenticated,  require('./routes/users/getUserById'))
-.delete('/:userId', mustBeAuthenticated,  async(ctx, next) => {
-  ctx.body = {msg: "Пользователь удален"}
-});
+.delete('/', mustBeAuthenticated, require('./routes/users/deleteUser'));
 // .patch('/:userId',loadUserById, async (ctx, next) => {
 //   ctx.body = {msg: "Пользователь отредактирован"}
 // })

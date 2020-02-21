@@ -5,9 +5,11 @@ module.exports = async (ctx, next) => {
     if(err) {
       ctx.status = 401;
       ctx.body = {message: "Вы не авторизованы"};
+      return
     }
 
     if(user) {
+      console.log(user);
       ctx.state.user = user;
       await next();
     } else {
