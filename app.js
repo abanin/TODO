@@ -12,6 +12,8 @@ require('./handlers/07-bodyParser').init(app);
 
 
 const Router = require('koa-router');
+const router = new Router();
+
 const userRouter = new Router({
   prefix: `${config.get('apiBaseUri')}${config.get('prefixs.users')}`
 });
@@ -19,12 +21,16 @@ const userRouter = new Router({
 const containerRouter = new Router({
   prefix: `${config.get('apiBaseUri')}${config.get('prefixs.containers')}`
 })
-const router = new Router();
+
+const todoRouter = new Router({
+  prefix: `${config.get('apiBaseUri')}${config.get('prefixs.todos')}`
+})
 
 // const loadUserById = require('./middleware/loadUserById');
 const mustBeAuthenticated = require('./middleware/mustBeAuthenticated');
+const mustHaveContainerAccess = require('./middleware/mustHaveContainerAccess');
 
-
+// /api/v1/users
 userRouter
 .get('/', mustBeAuthenticated, require('./routes/users/getAllUsers'))
 .post('/reg', require('./routes/users/regUser'))
@@ -32,13 +38,24 @@ userRouter
 .get('/:userId', mustBeAuthenticated,  require('./routes/users/getUserById'))
 .delete('/', mustBeAuthenticated, require('./routes/users/deleteUser'));
 // .patch('/:userId',loadUserById, async (ctx, next) => {
-//   ctx.body = {msg: "Пользователь отредактирован"}
+//   ctx.body = {msg: "Профиль пользователя обнавлен"}
 // })
 
+
+// /api/v1/containers
 containerRouter
 .get('/', mustBeAuthenticated, require('./routes/containers/getAllContainers'))
-.get('/:containerId', mustBeAuthenticated, require('./routes/containers/getByIdContainer'))
+.get('/:containerId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/containers/getByIdContainer'))
 .post('/create', mustBeAuthenticated, require('./routes/containers/createContainers'));
+
+
+// /api/v1/todos/:containerId
+todoRouter
+.get('/:containerId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/getAllTodos'))
+.post('/:containerId/create', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/createTodo'))
+// .get('/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todo/getTodoById'))
+// .delete('/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todo/deleteTodoById'))
+// .patch('/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todo/updateTodoById'))
 
 
 router.get('/', async (ctx, next) => {
@@ -49,6 +66,7 @@ router.get('/', async (ctx, next) => {
 
 app.use(userRouter.routes());
 app.use(containerRouter.routes());
+app.use(todoRouter.routes());
 app.use(router.routes());
 
 module.exports = app;

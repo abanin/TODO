@@ -13,7 +13,11 @@ const containerSchema = new Schema({
     trim: true,
     required: "Необходимо дать название рабочему блоку"
   },
-  owners: [{type: Types.ObjectId, ref: "User"}]
+  owners: [{type: Types.ObjectId, ref: "User"}],
+  todos: [{
+    type: Types.ObjectId,
+    ref: "Todo"
+  }]
 }, {
   timestamps: true,
   toObject: {

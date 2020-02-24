@@ -8,7 +8,8 @@ module.exports = {
   secretJwt: 'hashSecretKeyYanusik',
   prefixs: {
     users: "/users",
-    containers: "/containers"
+    containers: "/containers",
+    todos: "/todos"
   },
   apiBaseUri: "/api/v1",
   root: process.cwd(),
