@@ -4,12 +4,6 @@ const getPublicValueFromPublicFields = require("./../../helpers/getPublicValueFr
 
 module.exports = async (ctx, next) => {
   const user = ctx.state.user;
-  if (!user) {
-    ctx.status = 401;
-    ctx.body = { message: "Доступ запрещен" };
-    return;
-  }
-
   const { title } = getPublicValueFromPublicFields(
     ctx.request.body,
     Container.publicFields

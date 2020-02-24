@@ -1,4 +1,6 @@
 const User = require("../../models/User");
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const getPublicValueFromPublicFields = require("../../helpers/getPublicValueFromPublicFields");
 
 module.exports = async (ctx, next) => {
@@ -21,6 +23,13 @@ module.exports = async (ctx, next) => {
     console.error("Routes [regUser.js]: Что то пошло не так");
     ctx.throw(500, { message: "Что то пошло не так" }); // TODO придумать нормальный текст для ошибки
   }
+
+  const payload = {
+    userId: user.id,
+    email: user.email
+  }
+
+  const token = jwt.sign(payload, config.get('secretJwt'));
   ctx.status = 201;
-  ctx.body = user.toObject();
+  ctx.body = {...user.toObject(),  token: "JWT " + token};
 };

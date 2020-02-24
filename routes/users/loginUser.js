@@ -7,11 +7,6 @@ const getPublicValueFromPublicFields = require('../../helpers/getPublicValueFrom
 module.exports = async(ctx, next) => {
   await passport.authenticate('local', (err, user, info) => {
     if(err) ctx.throw(500, {message: "Что то пошло не так"});
-    if(!user) {
-      ctx.status = 400;
-      ctx.body= info;
-      return;
-    }
 
     const userPrepare = getPublicValueFromPublicFields(user, User.publicFields);
     

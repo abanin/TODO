@@ -1,13 +1,8 @@
 const Container = require("../../models/Container");
 const User = require("../../models/User");
-const checkUser = require("../../helpers/checkUser");
 
 module.exports = async ctx => {
-  // На всякий случай!!))
-  if (!checkUser(ctx)) return;
-
   let user = ctx.state.user;
-  console.log(user);
   const containerId = ctx.params.containerId;
   if (!user.availableContainers.includes(containerId)) {
     ctx.status = 404;
