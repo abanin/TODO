@@ -51,11 +51,11 @@ containerRouter
 
 // /api/v1/todos/:containerId
 todoRouter
-.get('/:containerId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/getAllTodos'))
+.get('/', mustBeAuthenticated, require('./routes/todos/getAllTodos'))
+.get('/:containerId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/getTodosByContainerId'))
 .post('/:containerId/create', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/createTodo'))
-// .get('/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todo/getTodoById'))
-// .delete('/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todo/deleteTodoById'))
-// .patch('/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todo/updateTodoById'))
+.delete('/:containerId/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/deleteTodoById'))
+.patch('/:containerId/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/updateTodoById'))
 
 
 router.get('/', async (ctx, next) => {
