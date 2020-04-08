@@ -60,7 +60,7 @@ todoRouter
 .delete('/:containerId/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/deleteTodoById'))
 .patch('/:containerId/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/updateTodoById'))
 
-router.get('/', async (ctx, next) => {
+router.get('*', async (ctx, next) => {
   ctx.body = ctx.render('index.pug', {
     user: 'John'
   });
