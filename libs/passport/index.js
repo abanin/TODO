@@ -4,6 +4,7 @@ const localStategy = require('./strategies/local');
 const jwtStrategy = require('./strategies/jwt');
 
 
+
 // Для сессий
 // passport.serializeUser((user, done) => {
 //   done(null, user.id);

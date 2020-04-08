@@ -7,6 +7,7 @@ const publicFields = [
   "email",
   "name",
   "surname",
+  "password", // TODO remove if prod
   "avatarImage",
   "gender",
   "birthday",

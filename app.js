@@ -9,6 +9,8 @@ require('./handlers/04-templates').init(app);
 require('./handlers/05-errors').init(app);
 require('./handlers/06-session').init(app);
 require('./handlers/07-bodyParser').init(app);
+require('./handlers/08-passport').init(app);
+require('./handlers/09-cors').init(app);
 
 
 const Router = require('koa-router');

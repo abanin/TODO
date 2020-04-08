@@ -8,6 +8,7 @@ const localStategies = new LocalStrategy({
   session: false
 }, async(email, password, done) => {
   try {
+    console.log('HELLO');
     const user = await User.findOne({ email });
     if(!user) {
       return done(null, false, {message: "Пользователь не найден"})

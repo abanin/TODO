@@ -1,4 +1,7 @@
 const passport = require('koa-passport')
 
-app.use(passport.initialize())
-app.use(passport.session())
+exports.init = app => {
+  app.use(passport.initialize());
+};
+
+// app.use(passport.session())

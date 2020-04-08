@@ -8,20 +8,28 @@ module.exports = async (ctx, next) => {
     ctx.request.body,
     User.publicFields
   );
+  publicValue.password = ctx.request.body.password
+
+  console.log('body', ctx.request.body);
+  console.log(publicValue);
+  
   if (!Object.keys(publicValue).length) {
     console.error("Routes [regUser.js]: not valid request.body");
-    ctx.throw(400, {
-      message: "Передайте корректные значения для создания пользователя"
-    });
+    ctx.status = 400;
+    ctx.body = {message: "Передайте корректные значения для создания пользователя"};
+    return
   }
   // TODO оптмизировать логику работы.
+
   const user = await User.create(publicValue);
   await user.setPassword(ctx.request.body.password);
   await user.save();
 
   if (!user) {
     console.error("Routes [regUser.js]: Что то пошло не так");
-    ctx.throw(500, { message: "Что то пошло не так" }); // TODO придумать нормальный текст для ошибки
+    ctx.status = 400;
+    ctx.body = {message: "Что то пошло не так" };  // TODO придумать нормальный текст для ошибки
+    return
   }
 
   const payload = {
