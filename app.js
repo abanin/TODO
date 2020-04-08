@@ -16,6 +16,7 @@ require('./handlers/09-cors').init(app);
 const Router = require('koa-router');
 const router = new Router();
 
+
 const userRouter = new Router({
   prefix: `${config.get('apiBaseUri')}${config.get('prefixs.users')}`
 });
@@ -59,11 +60,11 @@ todoRouter
 .delete('/:containerId/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/deleteTodoById'))
 .patch('/:containerId/:todoId', mustBeAuthenticated, mustHaveContainerAccess, require('./routes/todos/updateTodoById'))
 
-
 router.get('/', async (ctx, next) => {
-  ctx.body = {msg: "Hello world"}
+  ctx.body = ctx.render('index.pug', {
+    user: 'John'
+  });
 });
-
 
 
 app.use(userRouter.routes());
