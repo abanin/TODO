@@ -5,9 +5,10 @@ const config = require('config');
 const getPublicValueFromPublicFields = require('../../helpers/getPublicValueFromPublicFields');
 
 module.exports = async(ctx, next) => {
+  console.log(ctx.request.body);
   await passport.authenticate('local', (err, user, info) => {
     if(err) ctx.throw(500, {message: "Что то пошло не так"});
-
+    console.log(user);
     if(user) {
       const userPrepare = getPublicValueFromPublicFields(user, User.publicFields);
     
